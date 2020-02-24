@@ -1,15 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
 
-  const createTaskForm = document.querySelector("#create-task-form")
-  createTaskForm.addEventListener("submit", newTask)
+  /****** DOM Elements ******/
+  const findTaskForm = document.querySelector("#create-task-form")
+  const findList = document.querySelector("#tasks")
+  const taskDescription = document.querySelector("#new-task-description")
+  
+  /****** Add Event Listeners ******/
+  findTaskForm.addEventListener("submit", event => {
+    event.preventDefault()
+    
+    const newElement = document.createElement("li")
+    newElement.textContent = taskDescription.value
+    findList.append(newElement)
+    
+    const deleteButton = document.createElement("button")
+    deleteButton.textContent = ("X")
+    deleteButton.className = ("delete")
+    newElement.append(deleteButton)
+
+    newElement.querySelector(".delete").addEventListener("click", event => {
+      newElement.remove()
+    })
+  })
 
 })
-
-const newTask = event => {
-  event.preventDefault()
-  const taskDescription = document.querySelector("#new-task-description")
-  const taskElement = document.createElement("li")
-  taskElement.textContent = taskDescription.value
-
-  document.querySelector("#tasks").append(taskElement)
-}
